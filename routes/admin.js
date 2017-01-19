@@ -32,20 +32,23 @@ router.get('/sendmail', function(req, res, next) {
    // replace hardcoded options with data passed (somedata)
   var mailOptions = {
     from: 'ralphryan.bautista@gmail.com', // sender address
-    to: 'dirk3162003@yahoo.com', // list of receivers
-    subject: 'Test email', // Subject line
-    text: 'this is some text', //, // plaintext body
+    to: 'mariusladio2@gmail.com', // list of receivers
+    subject: 'Test email from yours truly!', // Subject line
+    text: 'Congrats Marius and Leslie!', //, // plaintext body
     html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
   }
 
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
-      return false;
+      res.render('index', { title: 'Message failed: ' + info.response });
+      //return false;
     }else{
-      console.log('Message sent: ' + info.response);
-      return true;
+      //console.log('Message sent: ' + info.response);
+      res.render('index', { title: 'Message sent: ' + info.response });
+      //return true;
     };
   });
+  
 });
 
 
