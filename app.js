@@ -4,6 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// Initialize Mongodb
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/nodetest1');
+// Use Mongoose
+var mongoose = require('mongoose');
+mongoose.connect("mongodb://localhost:27017/nodetest1")
+var mongooseDb = mongoose.connection;
+mongooseDb.on("error", console.error.bind(console, "connection error"));
+mongooseDb.once("open", function(callback) {
+console.log("MongoDb2 Connection succeeded.");
+});
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,11 +37,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = mongooseDb;
+    next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/home', home);
 app.use('/admin', admin);
 app.use('/guest', guest);
+
+//API Router setup
+var apiRouter = require('./routes/api');              // get an instance of the express Router
+app.use('/api', apiRouter);
+
+//MAIL Router setup
+var mailRouter = require('./routes/mail');              // get an instance of the express Router
+app.use('/mail', mailRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

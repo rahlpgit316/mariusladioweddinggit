@@ -1,6 +1,9 @@
 extends layout
 block content
+  script(src='javascripts/mainApp.js')  
   script(src='javascripts/adminCtrl.js')
-  div(ng-controller='adminCtrl as vm')
+  
+  div(ng-app='mainApp')
+    div(ng-controller='adminCtrl as vm')
       h1= title
-      p Welcome to #{title} {{ vm.testMike}}
+      p Welcome Marius to #{title} {{ vm.testMike}}
