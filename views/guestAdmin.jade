@@ -1,49 +1,57 @@
 extends layout
 block content
+  
   script(src='../../javascripts/mainApp.js')  
   script(src='../../javascripts/adminCtrl.js')
-  
-  div(ng-app='mainApp')
-    div(ng-controller='adminCtrl as vm')
-        nav(class="navbar navbar-inverse" role="navigation" style="padding-left:130px;")
+  nav(class="navbar navbar-inverse" role="navigation" style="padding-left:130px;")
             ul(class="nav navbar-nav")
-            li(class="active") 
-                a(href="/") Guest List
-                span(class="sr-only") (current)
-            li
-                a(href="/about") Wedding Setup
-            li
-                a(href="/contact") Contact us
+                li(class="active") 
+                    a(href="/") Guest List
+                    span(class="sr-only") (current)
+                li
+                    a(href="/about") Wedding Setup
+                li
+                    a(href="/contact") Contact us
+  div(ng-app='mainApp')
+    div(class="container-fluid margin-top-xs", ng-controller='adminCtrl as vm')
         div.top
-            form.form-horizontal(role="form" style="width: 50%;")
-                div(class="form-group") 
-                    label(for="name" class="col-sm-2 control-label") Name
-                    div(class="col-sm-10")
-                        input(type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" ng-model="vm.userModel.name")
-                div(class="form-group")
-                    label(for="email" class="col-sm-2 control-label") Email
-                    div(class="col-sm-10")
-                        input(type="text" class="form-control" id="email" name="email" placeholder="example@domain.com" ng-model="vm.userModel.email")
-                div(class="form-group")
-                    div(class="col-sm-10 col-sm-offset-2")
-                        input(id="addGuest" name="addGuest" type="button" value="Send Code" class="btn btn-primary" ng-click="vm.addGuest()")
+            h1 Guest List
         div.container
+                form.form-horizontal(role="form" style="width: 50%;")
+                    div(class="form-group") 
+                        label(for="name" class="col-sm-2 control-label") Name
+                        div(class="col-sm-10")
+                            input(type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" ng-model="vm.userModel.name")
+                    div(class="form-group")
+                        label(for="email" class="col-sm-2 control-label") Email
+                        div(class="col-sm-10")
+                            input(type="text" class="form-control" id="email" name="email" placeholder="example@domain.com" ng-model="vm.userModel.email")
+                    div(class="form-group")
+                        div(class="col-sm-10 col-sm-offset-2")
+                            input(id="addGuest" name="addGuest" type="button" value="Add Guest" class="btn btn-primary" ng-click="vm.addGuest()")
                 div.content
-                    span {{vm.userModel.name}} {{vm.userModel.email}}
                     table.table.table-striped
                         thead
+                            th 
                             th Guest Name
                             th Email
                             th Invite Code
                             th Status
                         tbody
                             tr(ng-repeat='user in guestList')
+                                td 
+                                   input(id='selectGuest',type='checkbox', name='{{user._id}}', ng-click="vm.toggleSelection(user)")
                                 td {{user.name}}
                                 td {{user.email}}
                                 td 
-                                    a(href='#') {{user._id}}
+                                   a(href='#') {{user._id}}
                                 td active
-            
+              
         div.footer
+  div(class="actions-bar-padding")
+    div(class="actions-bar")
+       button(id="btnCancel" type="button" class="btn btn-default" ng-click="vm.back();") Send Invites    
+        
+
       
        
