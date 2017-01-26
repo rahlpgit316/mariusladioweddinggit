@@ -4,13 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// Initialize Mongodb
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/nodetest1');
+
 // Use Mongoose
 var mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/nodetest1")
+mongoose.connect("mongodb://localhost:27017/wedappdb")
 var mongooseDb = mongoose.connection;
 mongooseDb.on("error", console.error.bind(console, "connection error"));
 mongooseDb.once("open", function(callback) {

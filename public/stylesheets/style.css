@@ -1,8 +1,14 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.actions-bar {
+  padding: 10px 15px 10px 15px;
+  background-color: #eeeeee;
+  box-shadow: rgba(144, 144, 144, 0.38) 0 -2px 12px;
+  border-top: 1px solid #CECECE;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
 }
-
-a {
-  color: #00B7FF;
+.actions-bar-padding {
+  padding-top: 60px;
 }
